@@ -1,0 +1,46 @@
+PATH
+  remote: .
+  specs:
+    webpage_pubdate (0.1.0)
+      activesupport (> 5.0)
+      nokogiri (~> 1.3)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (6.0.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+      zeitwerk (~> 2.1, >= 2.1.8)
+    coderay (1.1.2)
+    concurrent-ruby (1.1.5)
+    i18n (1.6.0)
+      concurrent-ruby (~> 1.0)
+    method_source (0.9.2)
+    mini_portile2 (2.4.0)
+    minitest (5.11.3)
+    nokogiri (1.10.4)
+      mini_portile2 (~> 2.4.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    rake (10.5.0)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    zeitwerk (2.1.10)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 2.0)
+  minitest (~> 5.0)
+  pry
+  rake (~> 10.0)
+  webpage_pubdate!
+
+BUNDLED WITH
+   2.0.1
