@@ -122,13 +122,17 @@ module WebpagePubdate
       # Last chance: from the url
       #
 
-      url_pubdate = from_url
+      url_pubdate = from_url(tz)
 
       if @debug
         puts "DEBUG: #{url_pubdate ? 'HAS ' : 'NO '} publication date in URL"
       end
 
       url_pubdate
+    rescue StandardError => e
+      if @debug
+        puts "DEBUG: EXCEPTION #{e}"
+      end
     end
 
     def metas
@@ -183,7 +187,7 @@ module WebpagePubdate
       end
     end
 
-    def from_url
+    def from_url(tz)
       return unless @url
 
       m = @url.match(/(\d\d\d\d)\/(\d\d?)\/(\d?\/)?$/)
