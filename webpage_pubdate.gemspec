@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport', '> 5.0'
   spec.add_dependency 'nokogiri', '~> 1.3'
+  spec.add_dependency 'httparty', '~> 0.17'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'minitest', '~> 5.0'
