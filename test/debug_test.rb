@@ -5,6 +5,8 @@ require 'pry'
 require 'yaml'
 require 'csv'
 
+#  bundle exec rake test TEST=test/debug_test.rb TESTOPTS="--name=test_it_debug_test -v"
+
 class WebpagePubdateDebugTest < Minitest::Test
   def test_it_debug_test
     tz = ActiveSupport::TimeZone.new('UTC')
