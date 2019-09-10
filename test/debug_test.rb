@@ -16,7 +16,9 @@ class WebpagePubdateDebugTest < Minitest::Test
     #
     # url = 'https://www.statista.com/chartoftheday/'
     # url = 'https://www.bloomberg.com/authors/AR3OYuAmvcU/noah-smith' <- not an article
-    url = 'https://www.bloomberg.com/news/articles/2018-06-19/coal-is-being-squeezed-out-of-power-industry-by-cheap-renewables'
+    # url = 'https://www.bloomberg.com/news/articles/2018-06-19/coal-is-being-squeezed-out-of-power-industry-by-cheap-renewables'
+    # url = 'https://www.bls.gov/bdm/entrepreneurship/entrepreneurship.htm'
+    url = 'https://ftalphaville.ft.com/2018/01/17/2197783/that-time-when-american-banks-basically-existed-to-fund-the-government/'
     pubdate = WebpagePubdate::WebpagePubdate.from_url(url).pubdate({ debug: true })
     expected_pubdate = tz.parse("2018-07-06T03:00:16Z-04:00")
     puts "#{pubdate}"

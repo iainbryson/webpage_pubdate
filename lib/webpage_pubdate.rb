@@ -132,7 +132,7 @@ module WebpagePubdate
       url_pubdate
     rescue StandardError => e
       if @debug
-        puts "DEBUG: EXCEPTION #{e}"
+        puts "DEBUG: EXCEPTION #{e} #{e.backtrace}"
       end
     end
 
@@ -196,7 +196,8 @@ module WebpagePubdate
       if m
         year  = m[1]
         month = m[2]
-        day   = m[3]&.chomp("\\") || '1'
+        day   = m[3]&.chomp('/') || '1'
+        puts "#{year}-#{month}-#{day}"
         url_date = tz.iso8601("#{year}-#{month}-#{day}")
 
         return url_date if url_date
