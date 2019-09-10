@@ -65,6 +65,7 @@ module WebpagePubdate
       @debug   = !!opts[:debug]
       @metas   = metas
       @json_ld = json_ld
+      @json_ld = nil if @json_ld.empty?
 
       #
       # Try getting publication from <meta> tags
@@ -191,25 +192,28 @@ module WebpagePubdate
       return unless @url
 
       # first attempt, match YYYY/MM/DD as path
-      m = @url.match(/(\d\d\d\d)\/(\d\d?)\/(\d\d?\/)?$/)
-      return unless m
+      m = @url.match(/\/(\d\d\d\d)\/(\d\d?)\/(\d\d?\/)?/)
+      if m
+        year  = m[1]
+        month = m[2]
+        day   = m[3]&.chomp("\\") || '1'
+        url_date = tz.iso8601("#{year}-#{month}-#{day}")
 
-      year  = m[1]
-      month = m[2]
-      day   = m[3] || '1'
-      url_date = tz.iso8601("#{year}-#{month}-#{day}")
+        return url_date if url_date
+      end
 
-      return url_date if url_date
+      # second attempt, match YYYY-MM-DD (or using underscore) as single path segment
+      m = @url.match(/\/(\d\d\d\d)[\-_](\d\d)[\-_](\d\d)\//)
+      if m
+        year  = m[1]
+        month = m[2]
+        day   = m[3] || '1'
+        url_date = tz.iso8601("#{year}-#{month}-#{day}")
 
-      # first attempt, match YYYY-MM-DD (or using underscore) as singoe path segment
-      m = @url.match(/(\d\d\d\d)[-_](\d\d)[-_](\d\d\/)?$/)
-      return unless m
-      year  = m[1]
-      month = m[2]
-      day   = m[3] || '1'
-      url_date = tz.iso8601("#{year}-#{month}-#{day}")
+        return url_date if url_date
+      end
 
-      url_date
+      nil
     end
   end
 end
