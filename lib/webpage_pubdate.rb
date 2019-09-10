@@ -65,7 +65,7 @@ module WebpagePubdate
       @debug   = !!opts[:debug]
       @metas   = metas
       @json_ld = json_ld
-      @json_ld = nil if @json_ld.empty?
+      @json_ld = nil if @json_ld&.empty?
 
       #
       # Try getting publication from <meta> tags
