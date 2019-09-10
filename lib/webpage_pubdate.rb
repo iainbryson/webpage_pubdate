@@ -87,7 +87,7 @@ module WebpagePubdate
         unless meta_pubdates.empty?
           puts "DEBUG: <meta> => #{meta_pubdates}"
         else
-          puts "DEBUG: no meta"
+          puts "DEBUG: NO meta"
         end
       end
 
@@ -100,7 +100,7 @@ module WebpagePubdate
       microformats_pubdate = microformats
 
       if @debug
-        puts "DEBUG: #{microformats_pubdate ? 'HAS' : 'NO'} microformat publisher date"
+        puts "DEBUG: #{microformats_pubdate ? 'HAS' : 'NO '} microformat publisher date"
       end
 
       return tz.parse(microformats_pubdate) if microformats_pubdate
@@ -112,7 +112,7 @@ module WebpagePubdate
       json_ld_pubdate = nested_hash_value(@json_ld, 'datePublished') || nested_hash_value(@json_ld, 'published')
 
       if @debug
-        puts "DEBUG: #{@json_ld ? 'HAS ' : 'NO '} JSON-LD"
+        puts "DEBUG: #{@json_ld ? 'HAS' : 'NO ' } JSON-LD"
         puts "DEBUG: JSON-LD has pubdate" if json_ld_pubdate
       end
 
@@ -125,7 +125,7 @@ module WebpagePubdate
       url_pubdate = from_url(tz)
 
       if @debug
-        puts "DEBUG: #{url_pubdate ? 'HAS ' : 'NO '} publication date in URL"
+        puts "DEBUG: #{url_pubdate ? 'HAS' : 'NO ' } publication date in URL"
       end
 
       url_pubdate
@@ -190,13 +190,26 @@ module WebpagePubdate
     def from_url(tz)
       return unless @url
 
-      m = @url.match(/(\d\d\d\d)\/(\d\d?)\/(\d?\/)?$/)
+      # first attempt, match YYYY/MM/DD as path
+      m = @url.match(/(\d\d\d\d)\/(\d\d?)\/(\d\d?\/)?$/)
       return unless m
 
       year  = m[1]
       month = m[2]
       day   = m[3] || '1'
-      tz.iso8601("#{year}-#{month}-#{day}")
+      url_date = tz.iso8601("#{year}-#{month}-#{day}")
+
+      return url_date if url_date
+
+      # first attempt, match YYYY-MM-DD (or using underscore) as singoe path segment
+      m = @url.match(/(\d\d\d\d)[-_](\d\d)[-_](\d\d\/)?$/)
+      return unless m
+      year  = m[1]
+      month = m[2]
+      day   = m[3] || '1'
+      url_date = tz.iso8601("#{year}-#{month}-#{day}")
+
+      url_date
     end
   end
 end
