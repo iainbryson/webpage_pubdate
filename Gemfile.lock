@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webpage_pubdate (0.1.0)
+    webpage_pubdate (0.1.5)
       activesupport (> 5.0)
       httparty (~> 0.17)
       nokogiri (~> 1.3)

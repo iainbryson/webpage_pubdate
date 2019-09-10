@@ -8,20 +8,6 @@ require 'active_support/all'
 require 'active_support/time'
 require 'httparty'
 
-# howmuch
-# reddit
-# airtable
-# https://visual.ly/community/infographic/sports/baseballs-many-physical-dimensions
-# https://ourworldindata.org/does-the-news-reflect-what-we-die-from
-# https://public.tableau.com/profile/jared.oeth5356#!/vizhome/FANTASYFOOTBALLFINISH/FANTASYFINISH
-# https://interactives.cbinsights.com/us-banks-fintech-investments/
-# https://www.marketingcharts.com/category/featured/page/2
-# https://www.niemanlab.org/2019/02/heres-where-your-new-readers-are-going-to-come-from-in-2019/
-# https://medium.com/google-news-lab
-# bcg.com
-# https://www.spglobal.com/marketintelligence/en/news-insights/research/outlook-for-2019-from-a-private-equity-point-of-view
-# https://fivethirtyeight.com/features/do-we-even-need-minor-league-baseball/
-
 module WebpagePubdate
   METAS = [
     { property: 'property', value: 'article:published_time' }, # SPEC OG
@@ -34,6 +20,7 @@ module WebpagePubdate
     { property: 'name', value: 'parsely-pub-date' }
   ].freeze
 
+  # pretend to be Chrome on a Mac
   HEADERS = { 'pragma'          => 'no-cache',
               'cache-control'   => 'no-cache',
               'user-agent'      => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36',
@@ -47,7 +34,7 @@ module WebpagePubdate
         doc     = Nokogiri::HTML(content)
         WebpagePubdate.new(doc, url)
       rescue StandardError => e
-        puts "fail to get #{e}"
+        puts "fail to get #{url} #{e}"
       end
     end
 
@@ -204,7 +191,7 @@ module WebpagePubdate
       end
 
       # second attempt, match YYYY-MM-DD (or using underscore) as single path segment
-      m = @url.match(/\/(\d\d\d\d)[\-_](\d\d)[\-_](\d\d)\//)
+      m = @url.match(/[\/\-](\d\d\d\d)[\-_](\d\d)[\-_](\d\d)[\/\-\.]/)
       if m
         year  = m[1]
         month = m[2]
