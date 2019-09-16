@@ -137,9 +137,9 @@ module WebpagePubdate
                 .map { |str| str.gsub(/[[:space:]]+/, ' ').strip }
       jsons.reduce({}) do |accum, json|
         begin
-          next unless json && json != ''
+          next(accum) unless json && json != ''
           ld = JSON.parse(json)
-          next unless ld.is_a? Hash
+          next(accum) unless ld.is_a? Hash
           accum = accum.merge(ld)
         rescue JSON::JSONError => e
           puts e.to_s
