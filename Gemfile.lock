@@ -34,7 +34,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rake (10.5.0)
+    rake (13.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -47,7 +47,7 @@ DEPENDENCIES
   bundler (~> 2.0)
   minitest (~> 5.0)
   pry
-  rake (~> 10.0)
+  rake (~> 13.0)
   webpage_pubdate!
 
 BUNDLED WITH
